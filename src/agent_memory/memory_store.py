@@ -6,7 +6,6 @@ from typing import List, Dict, Any, Optional
 import uuid
 from datetime import datetime
 import chromadb
-from chromadb.config import Settings
 from .config import AgentMemoryConfig
 
 
@@ -25,11 +24,10 @@ class MemoryStore:
         """
         self.config = config or AgentMemoryConfig()
         
-        # Initialize ChromaDB client
-        self.client = chromadb.Client(Settings(
-            chroma_db_impl="duckdb+parquet",
-            persist_directory=self.config.chroma_persist_directory
-        ))
+        # Initialize ChromaDB client with persistence
+        self.client = chromadb.PersistentClient(
+            path=self.config.chroma_persist_directory
+        )
         
         # Get or create collection
         self.collection = self.client.get_or_create_collection(
