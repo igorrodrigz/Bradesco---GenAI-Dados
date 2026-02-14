@@ -2,4 +2,4 @@
 Utility functions for the Agent Memory system
 """
 
-__all__ = ['format_memory', 'calculate_relevance']
+__all__ = ['format_memory', 'calculate_relevance', 'filter_by_date_range', 'summarize_memories']

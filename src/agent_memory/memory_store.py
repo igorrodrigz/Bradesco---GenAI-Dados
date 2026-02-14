@@ -7,7 +7,6 @@ import uuid
 from datetime import datetime
 import chromadb
 from chromadb.config import Settings
-from langchain.embeddings import OpenAIEmbeddings
 from .config import AgentMemoryConfig
 
 
@@ -36,14 +35,6 @@ class MemoryStore:
         self.collection = self.client.get_or_create_collection(
             name=self.config.chroma_collection_name
         )
-        
-        # Initialize embeddings
-        if self.config.openai_api_key:
-            self.embeddings = OpenAIEmbeddings(
-                openai_api_key=self.config.openai_api_key
-            )
-        else:
-            self.embeddings = None
     
     def add_memory(
         self,
